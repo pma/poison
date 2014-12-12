@@ -57,6 +57,8 @@ defimpl Poison.Encoder, for: BitString do
     end
   end
 
+  defp escape(string, nil), do: string
+
   defp escape(<<char :: utf8>> <> rest, :unicode) when char in 0x80..0xFFFF do
     [seq(char) | escape(rest, :unicode)]
   end
